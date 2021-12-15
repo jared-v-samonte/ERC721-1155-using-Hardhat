@@ -1,0 +1,29 @@
+{
+  "name": "erc721-1155-using-hardhat",
+  "version": "1.0.0",
+  "description": "To practice using Hardhat instead of Truffle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jared-v-samonte/ERC721-1155-using-Hardhat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jared-v-samonte/ERC721-1155-using-Hardhat/issues"
+  },
+  "homepage": "https://github.com/jared-v-samonte/ERC721-1155-using-Hardhat#readme",
+  "devDependencies": {
+    "hardhat": "^2.7.1"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.4.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3"
+  }
+}
