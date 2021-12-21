@@ -44,6 +44,78 @@
         "ERC721"
       ]
     },
+    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
+      "lastModificationDate": 1639407820181,
+      "contentHash": "1744bec5bc5b6d27a7719cb8d4b5852f",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../ERC721.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721URIStorage"
+      ]
+    },
+    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
+      "lastModificationDate": 1639407820077,
+      "contentHash": "a21834c04c11733a9018196d6b1b0e89",
+      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Counters"
+      ]
+    },
     "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721.sol": {
       "lastModificationDate": 1639407820318,
       "contentHash": "937105c04c9b4b689f8ee2d6d161994d",
@@ -330,82 +402,10 @@
         "IERC165"
       ]
     },
-    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
-      "lastModificationDate": 1639407820181,
-      "contentHash": "1744bec5bc5b6d27a7719cb8d4b5852f",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "../ERC721.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC721URIStorage"
-      ]
-    },
-    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1639407820077,
-      "contentHash": "a21834c04c11733a9018196d6b1b0e89",
-      "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "Counters"
-      ]
-    },
-    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\contracts\\IP720.sol": {
-      "lastModificationDate": 1639591211152,
-      "contentHash": "34bd068e2605f98d1b5e4e48845354c6",
-      "sourceName": "contracts/IP720.sol",
+    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\contracts\\InterPlanetary720.sol": {
+      "lastModificationDate": 1640079746067,
+      "contentHash": "35d219e830f5ce610054e66b8e16385b",
+      "sourceName": "contracts/InterPlanetary720.sol",
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -438,7 +438,7 @@
         "^0.8.9"
       ],
       "artifacts": [
-        "IP720"
+        "InterPlanetary720"
       ]
     }
   }
