@@ -34,7 +34,6 @@ contract IP720 is ERC721URIStorage {
       
       _mint(owner, newItemId);
       _setTokenURI(newItemId, tokenURI);
-
        _idToHash[tokenURI] = newItemId;
       _hashExists[tokenURI] = true;
    }
