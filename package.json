@@ -1,8 +1,11 @@
 {
-  "name": "erc721-1155-using-hardhat",
+  "name": "erc721-with-hardhat",
   "version": "1.0.0",
   "description": "To practice using Hardhat instead of Truffle",
   "main": "index.js",
+  "engines": {
+    "node": "^8 || ^10"
+  },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -13,20 +16,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jared-v-samonte/ERC721-1155-using-Hardhat.git"
+    "url": "git+https://github.com/jared-v-samonte/ERC721-with-Hardhat.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jared-v-samonte/ERC721-1155-using-Hardhat/issues"
+    "url": "https://github.com/jared-v-samonte/ERC721-with-Hardhat/issues"
   },
-  "homepage": "https://github.com/jared-v-samonte/ERC721-1155-using-Hardhat#readme",
+  "homepage": "https://github.com/jared-v-samonte/ERC721-with-Hardhat#readme",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.3",
     "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.5.2",
-    "hardhat": "^2.7.1"
+    "ethers": "^5.5.3",
+    "hardhat": "^2.8.3"
   },
   "dependencies": {
     "@mapbox/node-pre-gyp": "^1.0.3",
@@ -41,42 +44,42 @@
     "core-js": "^3.9.1",
     "delay": "^5.0.0",
     "ethjs-query": "^0.3.8",
-    "fix": "0.0.6",
+    "fix": "^0.0.3",
+    "https-browserify": "^1.0.0",
     "i": "^0.3.6",
     "immer": "^9.0.1",
     "install": "^0.13.0",
-    "ipfs-http-client": "^49.0.4",
+    "ipfs-http-client": "^42.0.0",
     "isexe": "^2.0.0",
     "jest-haste-map": "^26.6.2",
     "jquery": "^3.5.1",
-    "mocha": "^8.3.0",
+    "mocha": "^8.1.3",
     "native-fetch": "^3.0.0",
     "node-fetch": "^2.6.0",
     "node-gyp": "^7.1.2",
     "npm": "^7.8.0",
-    "npx": "^10.2.2",
+    "npx": "^3.0.0",
+    "os-browserify": "^0.3.0",
     "popper.js": "^1.16.1",
-    "react": "^17.0.2",
     "react-art": "^17.0.2",
     "react-bootstrap": "^1.5.0",
     "react-dom": "^17.0.1",
-    "react-native": "^0.64.0",
-    "react-native-gesture-handler": "^1.10.3",
+    "react-native-gesture-handler": "^2.2.0",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.0.0",
-    "react-native-web": "^0.15.5",
+    "react-native-web": "^0.14.13",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-router-dom": "^5.2.0",
     "react-router-native": "^5.2.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^3.4.4",
     "sha3": "^2.1.4",
     "solc": "^0.8.3",
     "streamifier": "^0.1.1",
+    "svgo": "^2.8.0",
     "text-decoding": "^1.0.0",
-    "truffle": "^5.1.66",
+    "true-case-path": "^2.2.1",
     "types": "^0.1.1",
-    "typescript": "^4.2.2",
     "web3": "^1.3.4",
     "which": "^2.0.2"
   },

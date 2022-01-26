@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, View} from 'react-native';
 import Web3 from 'web3';
-import NFT from '../artifacts/contracts/InterPlanetary720.sol/InterPlanetary720.json'
+import NFT from '../artifacts/src/contracts/InterPlan721.sol'
 
 
 const ipfsClient = require('ipfs-http-client')

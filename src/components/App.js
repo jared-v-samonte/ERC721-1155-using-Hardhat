@@ -25,12 +25,6 @@ const AppNavigator = createStackNavigator({
   },
   Image: {
     screen: ImageViewer
-  },
-  Video: {
-    screen: VideoViewer
-  },
-  MP3: {
-    screen: AudioListener
   }
 });
 
