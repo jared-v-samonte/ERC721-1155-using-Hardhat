@@ -3,8 +3,8 @@ import { createAppContainer } from "react-navigation";
 import {createStackNavigator} from "react-navigation-stack";
 import './App.css';
 import ImageViewer from './ImageViewer.js'
-import VideoViewer from './VideoViewer.js'
-import AudioListener from './AudioListener.js'
+//import VideoViewer from './VideoViewer.js'
+//import AudioListener from './AudioListener.js'
 import HomePage from './HomePage.js'
 
 

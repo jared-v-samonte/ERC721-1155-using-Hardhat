@@ -1,8 +1,7 @@
+//import NFT from '../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json'
 import React, { Component } from 'react';
 import {Button, View} from 'react-native';
-import Web3 from 'web3';
-import NFT from '../artifacts/src/contracts/InterPlan721.sol'
-
+const { ethers } = require("ethers");
 
 const ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https', apiPath: '/api/v0'}) 
@@ -11,59 +10,82 @@ const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https', 
 
 class ImageViewer extends Component {
 
+    /*
   async componentWillMount() {
-    await this.loadWeb3()
+    await this.loadEthers()
     await this.loadBlockchainData()
   }
 
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
-    }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    }
-    else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-    }
+  async loadEthers() {
+    // A Web3Provider wraps a standard Web3 provider, which is
+    // what MetaMask injects as window.ethereum into each page
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner()
+
+    const contractSigner = contract.connect(signer);
+
+    const [owner] = await ethers.getSigners();
+
+    const InterPlan721 = await ethers.getContractFactory("InterPlan721");
+
+    // You can also use an ENS name for the contract address
+    const contractAddress = "0x7d4e3eb10F681C4b309FC4A9a11aE9D2a1d143dc";//dai.tokens.ethers.eth";
+
+    const daiAbi = [
+      // Some details about the token
+      "function getTokenId(string memory input) public view returns(uint256)",
+      "function grantItem(address owner, string memory tokenURI) public",
+    ];
+
+    // The Contract object
+    const contract = new ethers.Contract(contractAddress, daiAbi, provider);
+
+    // A filter for when a specific address receives tokens
+
+    // Send 1 DAI to "ricmoo.firefly.eth"
+    const tx = contractSigner.grantItem(owner.address, "https://giphy.com/gifs/rick-astley-Ju7l5y9osyymQ");
+
+    filter = contract.filters.Transfer(null, myAddress)
+    contract.on("Transfer", (from, to, amount, event) => {
+
+      console.log(`${ from } sent ${ formatEther(amount) } to ${ to}`);
+      // The event object contains the verbatim log data, the
+      // EventFragment and functions to fetch the block,
+      // transaction and receipt and event functions
+  });
+
   }
+  */
 
-  async loadBlockchainData() {
-    const web3 = window.web3
-    const accounts = await web3.eth.getAccounts()
-    this.setState({account: accounts[0]})
+  async uploadFile () {
 
-    const networkId = await web3.eth.net.getId()
-    const networkData = NFT.networks[networkId]
-    if(networkData) 
-    {
-      const contract = new web3.eth.Contract(NFT.abi, "0x279a5c3F134E3B187BF7e51fE552e5A8117301E3")
-      this.setState({ contract })
-      const totalSupply = await contract.methods.totalSupply().call()
-      this.setState({ totalSupply })
-    } 
-    else 
-    {
-      window.alert('Smart contract not deployed to detected network.')
-    }
-  }
-
-
-  uploadFile = (title) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    const [owner] = await ethers.getSigners();
+    //const InterPlan721 = await ethers.getContractFactory("InterPlan721");
+    const contractAddress = "0x7d4e3eb10F681C4b309FC4A9a11aE9D2a1d143dc";//dai.tokens.ethers.eth";
+    const daiAbi = [
+      // Some details about the token
+      "function getTokenId(string memory input) public view returns(uint256)",
+      "function grantItem(address owner, string memory tokenURI) public",
+    ];
+    const contract = new ethers.Contract(contractAddress, daiAbi, provider);
+    const contractSigner = contract.connect(signer);
     
     console.log("Submitting file to IPFS...")
     ipfs.add(this.state.file, { pin: true }).then(result => {
-      this.setState({ loading: true })
       console.log('hash ', result.path)
-      this.state.contract.methods.grantItem(accounts[0], "https://ipfs.io/ipfs/${result.path}").send({from: this.state.account})
+      contractSigner.grantItem(owner.address, "https://ipfs.io/ipfs/${result.path}")
       .once('receipt', (receipt) => {
-          this.setState({
-            ipfsHash: result.path,
-            files: [...this.state.files, result.path],
-            loading: false
-          })
-      })
+        this.setState({
+          ipfsHash: result.path,
+          files: [...this.state.files, result.path]
+        })
+    }) //const tx = 
     })
   }
 
@@ -91,9 +113,7 @@ class ImageViewer extends Component {
     {
       ipfsHash: '',
       file: null,
-      account: '',
       contract: null,      
-      totalSupply: 0,
       files: [],
       title: null,
       loading: false
@@ -114,7 +134,7 @@ class ImageViewer extends Component {
       onPress={() => this.props.navigation.navigate('Home')}
       />
 
-      <h3></h3>
+      <h3>"something"</h3>
 
 
       <form onSubmit={(event) => {
@@ -134,14 +154,6 @@ class ImageViewer extends Component {
           <div className="form-group mr-sm-2">
           <h1> </h1>
 
-          <input
-            id="fileTitle"
-            type="text"
-            ref={(input) => {this.fileTitle = input}}
-            className="form-control-sm"
-            placeholder="Title..."
-            required 
-          />
           </div>
           <input
           type='submit'
@@ -152,11 +164,12 @@ class ImageViewer extends Component {
       
       <div className="row text-center">
       { 
-        this.state.files.map((file, title, key) => {
+        this.state.files.map((file, key) => {
         return(
           <div key={key} className="col-md-6 pt-2 "> 
           <img 
             src={file}
+            alt="NULL"
             width="480"
             heigth= "480"
           />
