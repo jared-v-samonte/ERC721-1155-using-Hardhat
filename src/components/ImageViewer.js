@@ -1,8 +1,7 @@
 //import NFT from '../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json'
 import React, { Component } from 'react';
 import {Button, View} from 'react-native';
-import {ethers} from 'ethers';
-const hre = require("../../node_modules/hardhat");
+import { ContractFactory } from 'ethers';
 
 
 //const fs = window.require('fs');
@@ -21,9 +20,9 @@ class ImageViewer extends Component {
     const provider = new hre.ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
     //const signer = await ethers.provider.getSigner()
-    //const metadata = JSON.parse(fs.readFileSync('../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json').toString());
+    const factory = new ContractFactory(contractAbi, contractByteCode);
 
-    const contract = await hre.ethers.getContractFactory("InterPlan721");
+    //const contract = await hre.ethers.getContractFactory("InterPlan721");
     //const factory = new ethers.ContractFactory(metadata.abi, metadata.data.bytecode.object, provider)
     //const InterPlan721 = await contract.attach(contractAddress);
     //const contractSigner = InterPlan721.connect(signer);
