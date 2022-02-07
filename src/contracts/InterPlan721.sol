@@ -3,27 +3,21 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-contract InterPlan721 is ERC721URIStorage {
-   mapping(string => bool) _hashExists;
-   mapping(string => uint) _idToHash;
-   using Counters for Counters.Counter;
-   Counters.Counter private _tokenIds;
-   constructor() ERC721("Inter Planetary 720", "IP720") {}
-   function getTokenId(string memory input) public view returns(uint256)
+contract InterPlan721 is ERC721URIStorage 
+{
+
+   string private _tokenURI;
+
+   constructor(address owner, string memory name, string memory symbol, string memory tokenURI) ERC721(name, symbol) 
    {
-      return  _idToHash[input];
+      uint256 oneAndOnly = 1;
+      _tokenURI = tokenURI;
+      _mint(owner, oneAndOnly);
+      _setTokenURI(oneAndOnly, tokenURI);
    }
-   function grantItem(address owner, string memory tokenURI) public 
-   {
-      _tokenIds.increment();
-      //make sures there is not an Identical file
-      require(!_hashExists[tokenURI]);
-      // assign current increment to newItemId
-      uint256 newItemId = _tokenIds.current();
-      
-      _mint(owner, newItemId);
-      _setTokenURI(newItemId, tokenURI);
-       _idToHash[tokenURI] = newItemId;
-      _hashExists[tokenURI] = true;
-   }
+
+  function baseTokenURI() public view returns (string memory) 
+  {
+    return _tokenURI;
+  }
 }

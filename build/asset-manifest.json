@@ -1,23 +1,13 @@
 {
   "files": {
-    "main.css": "/IPFS-NFTs-project/static/css/main.13ba3a7c.chunk.css",
-    "main.js": "/IPFS-NFTs-project/static/js/main.48bd9415.chunk.js",
-    "main.js.map": "/IPFS-NFTs-project/static/js/main.48bd9415.chunk.js.map",
-    "runtime-main.js": "/IPFS-NFTs-project/static/js/runtime-main.48f302b2.js",
-    "runtime-main.js.map": "/IPFS-NFTs-project/static/js/runtime-main.48f302b2.js.map",
-    "static/css/2.ba27c2ca.chunk.css": "/IPFS-NFTs-project/static/css/2.ba27c2ca.chunk.css",
-    "static/js/2.64351478.chunk.js": "/IPFS-NFTs-project/static/js/2.64351478.chunk.js",
-    "static/js/2.64351478.chunk.js.map": "/IPFS-NFTs-project/static/js/2.64351478.chunk.js.map",
-    "index.html": "/IPFS-NFTs-project/index.html",
-    "static/css/2.ba27c2ca.chunk.css.map": "/IPFS-NFTs-project/static/css/2.ba27c2ca.chunk.css.map",
-    "static/css/main.13ba3a7c.chunk.css.map": "/IPFS-NFTs-project/static/css/main.13ba3a7c.chunk.css.map",
-    "static/js/2.64351478.chunk.js.LICENSE.txt": "/IPFS-NFTs-project/static/js/2.64351478.chunk.js.LICENSE.txt"
+    "main.css": "./src/index.js/static/css/main.c58b3c50.css",
+    "main.js": "./src/index.js/static/js/main.ebee0c02.js",
+    "index.html": "./src/index.js/index.html",
+    "main.c58b3c50.css.map": "./src/index.js/static/css/main.c58b3c50.css.map",
+    "main.ebee0c02.js.map": "./src/index.js/static/js/main.ebee0c02.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.48f302b2.js",
-    "static/css/2.ba27c2ca.chunk.css",
-    "static/js/2.64351478.chunk.js",
-    "static/css/main.13ba3a7c.chunk.css",
-    "static/js/main.48bd9415.chunk.js"
+    "static/css/main.c58b3c50.css",
+    "static/js/main.ebee0c02.js"
   ]
 }

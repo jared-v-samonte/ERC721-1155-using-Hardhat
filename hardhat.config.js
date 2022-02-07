@@ -21,7 +21,6 @@ module.exports = {
       sources: "./src/contracts",
       tests: "./test",
       cache: "./cache",
-      artifacts: "./src/artifacts",
-      deploy: "./scripts/deploy.js"
+      artifacts: "./src/artifacts"
     },
 };

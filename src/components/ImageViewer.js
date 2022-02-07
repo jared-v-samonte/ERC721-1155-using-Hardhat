@@ -1,7 +1,12 @@
 //import NFT from '../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json'
 import React, { Component } from 'react';
 import {Button, View} from 'react-native';
-const { ethers } = require("ethers");
+import {ethers} from 'ethers';
+const hre = require("../../node_modules/hardhat");
+
+
+//const fs = window.require('fs');
+
 
 const ipfsClient = require('ipfs-http-client')
 const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https', apiPath: '/api/v0'}) 
@@ -10,88 +15,44 @@ const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https', 
 
 class ImageViewer extends Component {
 
-    /*
-  async componentWillMount() {
-    await this.loadEthers()
-    await this.loadBlockchainData()
-  }
-
-  async loadEthers() {
-    // A Web3Provider wraps a standard Web3 provider, which is
-    // what MetaMask injects as window.ethereum into each page
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-
-    // The MetaMask plugin also allows signing transactions to
-    // send ether and pay to change state within the blockchain.
-    // For this, you need the account signer...
-    const signer = provider.getSigner()
-
-    const contractSigner = contract.connect(signer);
-
-    const [owner] = await ethers.getSigners();
-
-    const InterPlan721 = await ethers.getContractFactory("InterPlan721");
-
-    // You can also use an ENS name for the contract address
-    const contractAddress = "0x7d4e3eb10F681C4b309FC4A9a11aE9D2a1d143dc";//dai.tokens.ethers.eth";
-
-    const daiAbi = [
-      // Some details about the token
-      "function getTokenId(string memory input) public view returns(uint256)",
-      "function grantItem(address owner, string memory tokenURI) public",
-    ];
-
-    // The Contract object
-    const contract = new ethers.Contract(contractAddress, daiAbi, provider);
-
-    // A filter for when a specific address receives tokens
-
-    // Send 1 DAI to "ricmoo.firefly.eth"
-    const tx = contractSigner.grantItem(owner.address, "https://giphy.com/gifs/rick-astley-Ju7l5y9osyymQ");
-
-    filter = contract.filters.Transfer(null, myAddress)
-    contract.on("Transfer", (from, to, amount, event) => {
-
-      console.log(`${ from } sent ${ formatEther(amount) } to ${ to}`);
-      // The event object contains the verbatim log data, the
-      // EventFragment and functions to fetch the block,
-      // transaction and receipt and event functions
-  });
-
-  }
-  */
 
   async uploadFile () {
 
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-    const [owner] = await ethers.getSigners();
-    //const InterPlan721 = await ethers.getContractFactory("InterPlan721");
-    const contractAddress = "0x7d4e3eb10F681C4b309FC4A9a11aE9D2a1d143dc";//dai.tokens.ethers.eth";
-    const daiAbi = [
-      // Some details about the token
-      "function getTokenId(string memory input) public view returns(uint256)",
-      "function grantItem(address owner, string memory tokenURI) public",
-    ];
-    const contract = new ethers.Contract(contractAddress, daiAbi, provider);
-    const contractSigner = contract.connect(signer);
+    const provider = new hre.ethers.providers.Web3Provider(window.ethereum)
+    await provider.send("eth_requestAccounts", []);
+    //const signer = await ethers.provider.getSigner()
+    //const metadata = JSON.parse(fs.readFileSync('../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json').toString());
+
+    const contract = await hre.ethers.getContractFactory("InterPlan721");
+    //const factory = new ethers.ContractFactory(metadata.abi, metadata.data.bytecode.object, provider)
+    //const InterPlan721 = await contract.attach(contractAddress);
+    //const contractSigner = InterPlan721.connect(signer);
     
     console.log("Submitting file to IPFS...")
-    ipfs.add(this.state.file, { pin: true }).then(result => {
+    await ipfs.add(this.state.image, { pin: true }).then(result => {
       console.log('hash ', result.path)
-      contractSigner.grantItem(owner.address, "https://ipfs.io/ipfs/${result.path}")
-      .once('receipt', (receipt) => {
+      let metaData = "";
+      metaData += "{ \n";
+      metaData +=   "\"name\"\: \"${this.state.name}\"\,\n";
+      metaData +=   "\"description\"\: \"${this.state.description}\"\,\n";
+      metaData +=   "\"symbol\"\: \"${this.state.symbol}\"\,\n";
+      metaData +=  "\"image\"\: \"https://ipfs.io/ipfs/${result.path}\"\,\n" ;
+      ipfs.add(metaData, { pin: true }).then(result => {
+        console.log('hash ', result.data)
+        const InterPlan721 = contract.deploy(provider.address, this.state.name, this.state.symbol, this.state.description, result.data);
+        console.log("Contract deployed at:", InterPlan721.address);
+        InterPlan721.deployed();
         this.setState({
-          ipfsHash: result.path,
-          files: [...this.state.files, result.path]
+          address: InterPlan721.address
         })
-    }) //const tx = 
-    })
+      })
+    });
   }
+
 
   captureFile = event => 
   {
-    console.log('capturing ', this.state.file)
+    console.log('capturing ', this.state.image)
     event.preventDefault()
     const temp = event.target.files[0]
     const reader = new window.FileReader()
@@ -111,12 +72,11 @@ class ImageViewer extends Component {
     super(props)
     this.state = 
     {
-      ipfsHash: '',
+      name: null,
+      description: null,
+      symbol: null,
       file: null,
-      contract: null,      
-      files: [],
-      title: null,
-      loading: false
+      address: null,
     }
     this.uploadFile = this.uploadFile.bind(this)
     this.captureFile = this.captureFile.bind(this)
@@ -134,14 +94,11 @@ class ImageViewer extends Component {
       onPress={() => this.props.navigation.navigate('Home')}
       />
 
-      <h3>"something"</h3>
 
 
       <form onSubmit={(event) => {
           event.preventDefault()
-          const tempTitle = this.fileTitle.value
-          this.uploadFile(tempTitle)
-          this.setState({title: tempTitle})
+          this.uploadFile()
         }}>
           &nbsp;
 
@@ -154,30 +111,43 @@ class ImageViewer extends Component {
           <div className="form-group mr-sm-2">
           <h1> </h1>
 
-          </div>
+          <input   
+            type="text"
+            className="form-control-sm"
+            placeholder="Name of NFT"
+            required
+            ref={(input) => {this.name = input}}
+          />
+
+
+          <div className="form-group mr-sm-2"></div>
+          <input    
+            type="text"
+            className="form-control-sm"
+            placeholder="Description of NFT"
+            required
+            ref={(input) => {this.description = input}}
+          />
+
+          <input     
+            type="text"
+            className="form-control-sm"
+            placeholder="Symbol of NFT"
+            required
+            ref={(input) => {this.symbol = input}}
+          />
+
+          <div className="form-group mr-sm-2"></div>
           <input
           type='submit'
           className='btn btn-block btn-primary'
           value='MINT'
           />
-      </form>
+          </div></form>
+
+          <div>Contract Address: {this.state.address}</div>
       
-      <div className="row text-center">
-      { 
-        this.state.files.map((file, key) => {
-        return(
-          <div key={key} className="col-md-6 pt-2 "> 
-          <img 
-            src={file}
-            alt="NULL"
-            width="480"
-            heigth= "480"
-          />
-          <div>Token URI: {file}</div>
-          </div>
-        )})
-      }
-      </div> 
+
       </View>
     )
   }

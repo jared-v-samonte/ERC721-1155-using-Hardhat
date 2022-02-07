@@ -9,7 +9,7 @@ import BrowserRouter from 'react-router-dom/BrowserRouter'
 
 const root = document.getElementById('root')
 
-if (root !== null) {
+if (root) {
   ReactDOM.render((
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <App />
@@ -21,3 +21,4 @@ if (root !== null) {
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
+

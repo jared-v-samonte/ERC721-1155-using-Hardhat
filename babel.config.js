@@ -1,6 +1,5 @@
-module.exports = function(api) {
-    api.cache(true);
-    return {
-      presets: ['babel-preset-expo'],
-    };
-  };
+module.exports = {
+    presets : ["@babel/preset-react", "@babel/preset-env"],
+    plugins : ["@babel/plugin-transform-react-jsx"],
+    test: /\.js$|jsx/,
+}

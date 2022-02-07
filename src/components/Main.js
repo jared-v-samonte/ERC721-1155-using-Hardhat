@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Router} from 'react-router-dom';
-import ImageViewer from './ImageViewer'
-import HomePage from './HomePage'
+import ImageViewer from './ImageViewer.js'
+import HomePage from './HomePage.js'
 
 const Main = () => {
   return (

@@ -118,9 +118,9 @@ class ImageViewer extends Component {
 
       <form onSubmit={(event) => {
           event.preventDefault()
-          const tempTitle = this.fileTitle.value
-          this.uploadFile(tempTitle)
-          this.setState({title: tempTitle})
+          const tempData = this.metaData.value
+          this.uploadFile(tempData)
+          this.setState({title: tempData})
         }}>
           &nbsp;
 
@@ -131,17 +131,29 @@ class ImageViewer extends Component {
             onChange={this.captureFile}
           />
           <div className="form-group mr-sm-2">
-          <h1> </h1>
 
           <input
-            id="fileTitle"
+            id="metaData"
             type="text"
-            ref={(input) => {this.fileTitle = input}}
+            ref={(input) => {this.metaData = input}}
             className="form-control-sm"
             placeholder="Title..."
             required 
           />
           </div>
+
+          <div className="form-group mr-sm-2">
+
+          <input
+            id="metaData"
+            type="text"
+            ref={(input) => {this.metaData = input}}
+            className="form-control-sm"
+            placeholder="Title..."
+            required 
+          />
+          </div>
+
           <input
           type='submit'
           className='btn btn-block btn-primary'
