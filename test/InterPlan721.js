@@ -25,4 +25,3 @@ describe("testing URI", function () {
       expect(await deployed.name()).to.equal("Bolder and Brasher");
     });
   });
-

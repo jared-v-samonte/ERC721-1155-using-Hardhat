@@ -1,8 +1,7 @@
 //import NFT from '../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json'
 import React, { Component } from 'react';
 import {Button, View} from 'react-native';
-import { ContractFactory } from 'ethers';
-
+const hre = require("hardhat");
 
 //const fs = window.require('fs');
 
@@ -20,32 +19,33 @@ class ImageViewer extends Component {
     const provider = new hre.ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
     //const signer = await ethers.provider.getSigner()
-    const factory = new ContractFactory(contractAbi, contractByteCode);
+    //const metadata = JSON.parse(fs.readFileSync('../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json').toString());
 
-    //const contract = await hre.ethers.getContractFactory("InterPlan721");
+    const contract = await hre.ethers.getContractFactory("InterPlan721");
     //const factory = new ethers.ContractFactory(metadata.abi, metadata.data.bytecode.object, provider)
     //const InterPlan721 = await contract.attach(contractAddress);
     //const contractSigner = InterPlan721.connect(signer);
     
     console.log("Submitting file to IPFS...")
-    await ipfs.add(this.state.image, { pin: true }).then(result => {
+    for await (var result of ipfs.add(metaData, { pin: true }))
+    {
       console.log('hash ', result.path)
-      let metaData = "";
-      metaData += "{ \n";
-      metaData +=   "\"name\"\: \"${this.state.name}\"\,\n";
-      metaData +=   "\"description\"\: \"${this.state.description}\"\,\n";
-      metaData +=   "\"symbol\"\: \"${this.state.symbol}\"\,\n";
-      metaData +=  "\"image\"\: \"https://ipfs.io/ipfs/${result.path}\"\,\n" ;
-      ipfs.add(metaData, { pin: true }).then(result => {
-        console.log('hash ', result.data)
-        const InterPlan721 = contract.deploy(provider.address, this.state.name, this.state.symbol, this.state.description, result.data);
+      var metaData = '{ ';
+      metaData +=  '"name": "' + this.state.name + '",';
+      metaData +=  '"description": ' + this.state.description +'",';
+      metaData +=  '"symbol": "' + this.state.symbol + '",';
+      metaData +=  '"image": "https://ipfs.io/ipfs/' + result.path + '", ';
+      metaData +=  '"attributes": [ ... ],'
+      metaData += '}';
+      for await (var meta of ipfs.add(metaData, { pin: true }))
+      {
+        const InterPlan721 = await contract.deploy(provider.address, this.state.name, this.state.symbol, this.state.description, meta);
         console.log("Contract deployed at:", InterPlan721.address);
-        InterPlan721.deployed();
         this.setState({
           address: InterPlan721.address
         })
-      })
-    });
+      }
+    };
   }
 
 
