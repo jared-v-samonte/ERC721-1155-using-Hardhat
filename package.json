@@ -1,5 +1,5 @@
 {
-  "name": "erc721-with-hardhat",
+  "name": "InterPlan721",
   "version": "1.0.0",
   "description": "To practice using Hardhat instead of Truffle",
   "main": "index.js",
@@ -13,15 +13,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jared-v-samonte/ERC721-with-Hardhat.git"
+    "url": "git+https://github.com/jared-v-samonte/InterPlan721.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jared-v-samonte/ERC721-with-Hardhat/issues"
+    "url": "https://github.com/jared-v-samonte/InterPlan721/issues"
   },
-  "homepage": "https://jared-v-samonte.github.io/",
+  "homepage": "https://jared-v-samonte.github.io/InterPlan721/",
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.17.0",
