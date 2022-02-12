@@ -6,25 +6,18 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract InterPlan721 is ERC721URIStorage
 {
-
+   string private _tokenURI;
    uint256 oneAndOnly = 1;
 
-   constructor(address owner, string memory name, string memory symbol, string memory URI) ERC721(name, symbol) 
+   constructor(address owner, string memory name, string memory symbol, string memory inputURI) ERC721(name, symbol) 
    {
-      tokenURI = URI;
+      _tokenURI = inputURI;
       _mint(owner, oneAndOnly);
-      _setTokenURI(oneAndOnly, URI);
+      _setTokenURI(oneAndOnly, inputURI);
    }
 
-   function _baseURI() public view virtual returns (string memory)
+   function tokenURI(uint256 tokenId)  public view virtual override returns (string memory)
    {
-      string memory URIString = tokenURI.toSlice().concat(Strings.toString(oneAndOnly).toSlice());
-      return URIString;
+         return _tokenURI;
    }
-
-   function _tokenURI() public view virtual returns (string memory)
-   {
-      return tokenURI;
-   }
-   
 }

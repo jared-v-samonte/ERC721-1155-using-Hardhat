@@ -2,10 +2,11 @@ const { ethers } = require("hardhat");
 const ipfsClient = require('ipfs-http-client')
 var fs = require('fs')
 const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https', apiPath: '/api/v0'}) 
+require('dotenv').config();
 
 
 async function main() {
-	const [deployer] = await ethers.getSigners("a0b177cc94c90b964045eb3893da7a56f996bdf616f045c0b3ff6ba43add4078")
+	const [deployer] = await ethers.getSigners(process.env.PRIVATE_KEY)
 	console.log(
 	  "Deploying contracts with the account:",
 	  deployer.address

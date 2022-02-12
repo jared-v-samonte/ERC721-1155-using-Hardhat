@@ -20,7 +20,14 @@ class HomePage extends Component {
       <div >Currently functioning in the Goerli test network. </div>
 
       <div class="container">
-      <p>The smart contract does not allow for duplicate hashes, so hashes can only be used once. This is a demonstration of Jared V. Samonte's capabilities in developing in Ethereum, IPFS, Ether.js, the Hardhat framework, OpenZeppelin ERC721 library, and Goerli test network.</p>
+      <p>
+        Uses :
+        * Hardhat instead of Truffle
+        * Ether.js instead of Web3.js
+        * OpenZeppelin
+        * OpenSea API
+        * Goerli
+      </p>
       </div>
       <a href="https://www.linkedin.com/in/jared-samonte-9b9192157/">LinkedIn Account</a>
       <a href="https://github.com/jared-v-samonte/ERC721-with-Hardhat">GitHub Repository</a>

@@ -1,4 +1,3 @@
-//import NFT from '../artifacts/src/contracts/InterPlan721.sol/InterPlan721.json'
 import React, { Component } from 'react';
 import {Button, View} from 'react-native';
 import {ContractFactory, providers} from 'ethers';
@@ -29,22 +28,24 @@ class ImageViewer extends Component {
       for await (var result of ipfs.add(this.state.file, { pin: true }))
       {
         console.log('hash ', result.path)
-        metaData +=  '"name": "' + this.state.name + '",';
-        metaData +=  '"description": ' + this.state.description +'",';
-        metaData +=  '"symbol": "' + this.state.symbol + '",';
-        metaData +=  '"image": "https://ipfs.io/ipfs/' + result.path + '", ';
-        metaData +=  '"attributes": [ ... ]'
-        metaData += '}';
+        metaData +=  '\n' + '\t' + '"' + 'name' + '"'  + ':' + " " + '"' +  this.state.name  +  '"' + ', ';
+        metaData +=  '\n' + '\t' + '"' + 'description' + '"'  + ':' + " " + '"' +  this.state.description + '"' + ', ';
+        metaData +=  '\n' + '\t' + '"' + 'symbol' + '"'  + ':' + " " + '"' + this.state.symbol +  '"' + ', ';
+        metaData +=  '\n' + '\t' + '"' + 'image' + '"'  + ':' + " " + '"' + 'ipfs://' + result.path + '"';// + ', ';
+        metaData += '\n' + '}';
     }
-    console.log("Metadata: ", metaData)
+    console.log(metaData)
     console.log("Submitting file to IPFS...")
-    for await (var meta of ipfs.add(metaData, { pin: true }))
+    const jsonDATA = JSON.parse(metaData);
+    for await (var meta of ipfs.add(JSON.stringify(jsonDATA), { pin: true }))
         {
-          console.log('hash ', meta.path)
           console.log(signersAddress)
           console.log(this.state.name)
           console.log(this.state.symbol)
-          const tokenURI = '"image": "https://ipfs.io/ipfs/' + meta.path + '"'
+          const imageURI = 'https://ipfs.io/ipfs/' + this.state.image
+          const tokenURI = 'https://ipfs.io/ipfs/' + meta.path
+          console.log('URL: ', tokenURI)
+          console.log('image: ', imageURI)
           const InterPlan721 = await factory.deploy(signersAddress, this.state.name, this.state.symbol, tokenURI);
           console.log("Contract deployed at:", InterPlan721.signersAddress);
           this.setState({
