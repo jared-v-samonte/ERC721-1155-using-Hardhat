@@ -20,9 +20,6 @@ class HomePage extends Component {
       onPress={() => this.props.navigation.navigate('Image')}
       />
       </div>
-
-      
-      <div class="container" >
       <div class="marginTitle"> This website uses the following (works only on in the Goerli testnetwork for the moment):</div>
         <ul>
           <li>Hardhat instead of Truffle</li>
@@ -33,18 +30,14 @@ class HomePage extends Component {
           <li>OpenSea API</li>
           <li>MetaMask</li>
         </ul>
-      </div>
-      <div class="container" >
-      <div class="marginTitle"> Previous verisons of this project were not OpenSea or MetaMask compatible:</div>
-      <div class="marginTitle"> Imporant Links:</div>
+        <div class="marginTitle"> Previous verisons of this project were not OpenSea or MetaMask compatible:</div>
+      <div>Imporant Links:</div>
 
         <ul>
           <li><a href="https://www.linkedin.com/in/jared-samonte-9b9192157/">LinkedIn Account</a></li>
           <li><a href="https://github.com/jared-v-samonte/InterPlan721">GitHub Repository</a></li>
           <li><a href="https://jared-v-samonte.github.io/IPFS-NFTs-project/">Previous Version</a></li>
         </ul>
-      </div>
-
       </View>
       
     )
