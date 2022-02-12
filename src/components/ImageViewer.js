@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import {Button, View} from 'react-native';
 import {ContractFactory, providers} from 'ethers';
+import bytecode from './Bytecode.js'; 
+import abi from './Abi.js'; 
 const ipfsClient = require('ipfs-http-client')
+require('dotenv').config();
 const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https', apiPath: '/api/v0'}) 
 
 
@@ -12,50 +15,42 @@ class ImageViewer extends Component {
 
   async uploadFile () {
 
-    const provider = new providers.Web3Provider(window.ethereum)
-    await provider.send("eth_requestAccounts", []);
-    const signer = await provider.getSigner()
+    await window.ethereum.request({method: 'eth_requestAccounts'});
+    const provider = new providers.Web3Provider(window.ethereum);
 
-    var contract = {};
-    fetch('./InterPlan721.json')
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      // do something with data
-      console.log(data)
-      contract = data
-    }).catch(err => {
-      // Do something for an error here
-      console.log("Error Reading data " + err);
-    });
-    if (contract != null && contract.length < 1)
-    {
-      const factory = new ContractFactory(contract.abi, contract.bytecode, signer)
+    const signer = await provider.getSigner()
+    const signersAddress = await signer.getAddress()
+    console.log("Account:", signersAddress);
+
+      const factory = new ContractFactory(abi(), bytecode(), signer)
       
       console.log("Submitting file to IPFS...")
+      var metaData = '{ ';
       for await (var result of ipfs.add(this.state.file, { pin: true }))
       {
         console.log('hash ', result.path)
-        var metaData = '{ ';
         metaData +=  '"name": "' + this.state.name + '",';
         metaData +=  '"description": ' + this.state.description +'",';
         metaData +=  '"symbol": "' + this.state.symbol + '",';
         metaData +=  '"image": "https://ipfs.io/ipfs/' + result.path + '", ';
         metaData +=  '"attributes": [ ... ]'
         metaData += '}';
-        console.log("Submitting file to IPFS...")
-        for await (var meta of ipfs.add(metaData, { pin: true }))
+    }
+    console.log("Metadata: ", metaData)
+    console.log("Submitting file to IPFS...")
+    for await (var meta of ipfs.add(metaData, { pin: true }))
         {
           console.log('hash ', meta.path)
-          const InterPlan721 = await factory.deploy(provider.address, this.state.name, this.state.symbol, this.state.description, meta);
-          console.log("Contract deployed at:", InterPlan721.address);
+          console.log(signersAddress)
+          console.log(this.state.name)
+          console.log(this.state.symbol)
+          const tokenURI = '"image": "https://ipfs.io/ipfs/' + meta.path + '"'
+          const InterPlan721 = await factory.deploy(signersAddress, this.state.name, this.state.symbol, tokenURI);
+          console.log("Contract deployed at:", InterPlan721.signersAddress);
           this.setState({
             address: InterPlan721.address
           })
         }
-      }
-    }
   }
 
 
@@ -107,6 +102,14 @@ class ImageViewer extends Component {
 
       <form onSubmit={(event) => {
           event.preventDefault()
+          const temp_name = this.name.value
+          const temp_description = this.description.value
+          const temp_symbol = this.symbol.value
+          this.setState({
+            name: temp_name,
+            description: temp_description,
+            symbol: temp_symbol,
+          })
           this.uploadFile()
         }}>
           &nbsp;
@@ -120,7 +123,8 @@ class ImageViewer extends Component {
           <div className="form-group mr-sm-2">
           <h1> </h1>
 
-          <input   
+          <input 
+            id= 'name'  
             type="text"
             className="form-control-sm"
             placeholder="Name of NFT"
@@ -130,7 +134,8 @@ class ImageViewer extends Component {
 
 
           <div className="form-group mr-sm-2"></div>
-          <input    
+          <input
+            id= 'description'   
             type="text"
             className="form-control-sm"
             placeholder="Description of NFT"
@@ -138,7 +143,8 @@ class ImageViewer extends Component {
             ref={(input) => {this.description = input}}
           />
 
-          <input     
+          <input 
+            id= 'symbol'    
             type="text"
             className="form-control-sm"
             placeholder="Symbol of NFT"

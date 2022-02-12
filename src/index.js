@@ -7,9 +7,10 @@ import BrowserRouter from 'react-router-dom/BrowserRouter'
 
 
 
+
 const root = document.getElementById('root')
 
-if (root) {
+if (root != null) {
   ReactDOM.render((
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <App />
