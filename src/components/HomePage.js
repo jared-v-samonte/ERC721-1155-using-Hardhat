@@ -12,7 +12,7 @@ class HomePage extends Component {
       
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
   
-      <h1>InterPlanetary 721s</h1>
+      <h1>InterPlanetary 721</h1>
       
       <div class="marginButton">
       <Button
@@ -31,14 +31,17 @@ class HomePage extends Component {
           <li>ERC721 contracts</li>
           <li>OpenZeppelin</li>
           <li>OpenSea API</li>
+          <li>MetaMask</li>
         </ul>
       </div>
       <div class="container" >
+      <div class="marginTitle"> Previous verisons of this project were not OpenSea or MetaMask compatible:</div>
       <div class="marginTitle"> Imporant Links:</div>
 
         <ul>
           <li><a href="https://www.linkedin.com/in/jared-samonte-9b9192157/">LinkedIn Account</a></li>
           <li><a href="https://github.com/jared-v-samonte/InterPlan721">GitHub Repository</a></li>
+          <li><a href="https://jared-v-samonte.github.io/IPFS-NFTs-project/">Previous Version</a></li>
         </ul>
       </div>
 
