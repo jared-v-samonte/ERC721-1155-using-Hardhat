@@ -1,8 +1,16 @@
 /* Styles go here */
+  ul {
+    display: table;
+    margin: 0 auto;
+  }
 
-.token {
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    display: inline-block;
+  .marginButton {
+    height: 45px;
+    width: 175px;
+    margin: 0 auto;
+  }
+
+  .marginTitle {
+    width: 250px;
+    margin: 0 auto;
   }

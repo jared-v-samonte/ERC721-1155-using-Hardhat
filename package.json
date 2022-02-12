@@ -21,19 +21,22 @@
   "bugs": {
     "url": "https://github.com/jared-v-samonte/InterPlan721/issues"
   },
-  "homepage": "https://jared-v-samonte.github.io/InterPlan721/",
+  "homepage": "https://jared-v-samonte.github.io/InterPlan721",
   "private": true,
   "devDependencies": {
-    "@babel/core": "^7.17.0",
+    "@babel/core": "^7.17.2",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "babel-jest": "^27.5.1",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.0.0",
     "gh-pages": "^3.2.3",
     "hardhat": "^2.8.3"
   },
   "dependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/plugin-transform-react-jsx": "^7.16.7",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
     "babel-eslint": "10.1.0",
@@ -71,6 +74,7 @@
     "react-dev-utils": "^10.2.1",
     "react-dom": "^17.0.2",
     "react-native-gesture-handler": "^2.2.0",
+    "react-native-reanimated": "^1.13.3",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.10.2",
     "react-native-web": "^0.14.13",
@@ -111,7 +115,8 @@
     "testEnvironment": "jest-environment-jsdom-fourteen",
     "transform": {
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js",
+      "^.+\\.(js|jsx)$": "babel-jest"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
@@ -142,5 +147,14 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "jsx": "react"
+  "jsx": "react",
+  "babel": {
+    "presets": [
+      "@babel/preset-react",
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-react-jsx"
+    ]
+  }
 }
