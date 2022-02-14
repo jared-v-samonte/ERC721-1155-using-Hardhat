@@ -16,7 +16,7 @@ class HomePage extends Component {
       
       <div class="marginButton">
       <Button
-      title="Change to Images"
+      title="Mint an Image"
       onPress={() => this.props.navigation.navigate('Image')}
       />
       </div>

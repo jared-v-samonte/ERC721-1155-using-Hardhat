@@ -162,6 +162,8 @@ class ImageViewer extends Component {
           </div></form>
 
           <div>Contract Address: {this.state.address}</div>
+          <div>Token ID: 1</div>
+          <div>Network: Goerli</div>
       
 
       </View>
