@@ -21,7 +21,7 @@ class ImageViewer extends Component {
     const signersAddress = await signer.getAddress()
     console.log("Account:", signersAddress);
 
-      const factory = new ContractFactory(abi(), bytecode(), signer).attach("0xB71a6982775aD21CE9Edc3b30d7199bebe3e0530")
+      const factory = new ContractFactory(abi(), bytecode(), signer).attach("0xb387FfcF8E181Be41E2573328c8A002597B6B09A")
       var image_path;
       
       console.log("Submitting file to IPFS...")
@@ -47,7 +47,7 @@ class ImageViewer extends Component {
       console.log('URL: ', tokenURI)
       console.log('image: ', imageURI)
       const InterPlan721 = await factory.mintHexProfilePic(signersAddress, tokenURI);
-      console.log("Transaction Hash: ", InterPlan721.hash)
+      console.log("Transaction Hash:\t", InterPlan721.hash)
       this.setState({
         transactionHash: InterPlan721.hash
       })

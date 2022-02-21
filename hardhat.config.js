@@ -15,6 +15,11 @@ module.exports = {
         url: 'https://goerli.infura.io/v3/' + process.env.INFURA_API_KEY,
         accounts: ['0x' + process.env.PRIVATE_KEY],
         gasPrice: 8000000000, // default is 'auto' which breaks chains without the london hardfork 
+      },
+      mainnet: {
+        url: 'https://mainnet.infura.io/v3/' + process.env.INFURA_API_KEY,
+        accounts: ['0x' + process.env.PRIVATE_KEY],
+        gasPrice: 8000000000, // default is 'auto' which breaks chains without the london hardfork 
       }
     },
     paths: {

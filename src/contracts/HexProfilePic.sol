@@ -5,19 +5,21 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract HexProfilePic is ERC721URIStorage
 {
-    
-   using Counters for Counters.Counter;
-   Counters.Counter private _tokenIds;
+    address private collector = 0x72eF01d29b300460e44537e24b3eC535889E08D6;
+    uint256 private five_percent_fee = msg.value / 2000;
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
 
-   constructor() public ERC721("Hex Profile Pic", "HXP")  { }
+    constructor() public ERC721("Hex Profile Pic", "HXP")  { }
 
-   function mintHexProfilePic(address owner, string memory tokenURI) public returns (uint256) {
+    function mintHexProfilePic(address owner, string memory tokenURI) public payable {
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
         _mint(owner, newItemId);
         _setTokenURI(newItemId, tokenURI);
-
-        return newItemId;
+        
+        (bool sent, bytes memory data) = collector.call{value: five_percent_fee}("");
+        require(sent, "Failed to send Ether");
     }
 }

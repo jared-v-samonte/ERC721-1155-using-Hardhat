@@ -8,9 +8,9 @@ async function main() {
 	  "Deploying contracts with the account:",
 	  deployer.address
 	)
-  await console.log(
+  console.log(
 	  "Account balance:",
-	  deployer.getBalance().toString()
+	  await deployer.getBalance().toString()
 	)
   const contract = await ethers.getContractFactory("HexProfilePic")
   const deployed =  await contract.deploy()

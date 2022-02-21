@@ -175,14 +175,8 @@ export default function bytecode()
           }
         ],
         "name": "mintHexProfilePic",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "nonpayable",
+        "outputs": [],
+        "stateMutability": "payable",
         "type": "function"
       },
       {
