@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\ERC721-1155-using-Hardhat\\src\\contracts\\InterPlan721.sol": {
-      "lastModificationDate": 1644629803441,
-      "contentHash": "88b7a1d1ba9a4d28355411ca825dd64b",
-      "sourceName": "src/contracts/InterPlan721.sol",
+    "C:\\Users\\JAVSamonte\\Documents\\GitHub\\InterPlan721\\src\\contracts\\HexProfilePic.sol": {
+      "lastModificationDate": 1645372425634,
+      "contentHash": "a93a35bd82708c6cfe8025b94d4962dd",
+      "sourceName": "src/contracts/HexProfilePic.sol",
       "solcConfig": {
         "version": "0.8.9",
         "settings": {
@@ -29,58 +29,14 @@
         }
       },
       "imports": [
-        "@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-        "@openzeppelin/contracts/utils/Strings.sol"
+        "@openzeppelin/contracts/utils/Counters.sol"
       ],
       "versionPragmas": [
         "^0.8.9"
       ],
       "artifacts": [
-        "InterPlan721"
-      ]
-    },
-    "C:\\Users\\JAVSamonte\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
-      "lastModificationDate": 1642789117521,
-      "contentHash": "ead7082e39cf31875ff89b22f473500d",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
-      "solcConfig": {
-        "version": "0.8.9",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./IERC721.sol",
-        "./IERC721Receiver.sol",
-        "./extensions/IERC721Metadata.sol",
-        "../../utils/Address.sol",
-        "../../utils/Context.sol",
-        "../../utils/Strings.sol",
-        "../../utils/introspection/ERC165.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "ERC721"
+        "HexProfilePic"
       ]
     },
     "C:\\Users\\JAVSamonte\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\ERC721URIStorage.sol": {
@@ -153,6 +109,49 @@
       ],
       "artifacts": [
         "Counters"
+      ]
+    },
+    "C:\\Users\\JAVSamonte\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\ERC721.sol": {
+      "lastModificationDate": 1642789117521,
+      "contentHash": "ead7082e39cf31875ff89b22f473500d",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IERC721.sol",
+        "./IERC721Receiver.sol",
+        "./extensions/IERC721Metadata.sol",
+        "../../utils/Address.sol",
+        "../../utils/Context.sol",
+        "../../utils/Strings.sol",
+        "../../utils/introspection/ERC165.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC721"
       ]
     },
     "C:\\Users\\JAVSamonte\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\IERC721.sol": {

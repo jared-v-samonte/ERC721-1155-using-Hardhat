@@ -1,7 +1,4 @@
 const { ethers } = require("hardhat");
-const ipfsClient = require('ipfs-http-client')
-var fs = require('fs')
-const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https', apiPath: '/api/v0'}) 
 require('dotenv').config();
 
 
@@ -11,33 +8,13 @@ async function main() {
 	  "Deploying contracts with the account:",
 	  deployer.address
 	)
-	console.log("Account balance:", (await deployer.getBalance()).toString())
-  const contract = await ethers.getContractFactory("InterPlan721")
-  const image = "https://ipfs.io/ipfs/QmVLpQhvbXh1HuS9xP5rc7cBGPZsNsFBGoA1FUm7RULw1p";
-  var metaData = '{ '
-  metaData +=  '"description": "Bold and Brasher but more", '
-  metaData +=  '"name": "Bolder and Brasher", '
-  metaData +=  '"image": "' + image + '", ' 
-  metaData +=  '"attributes": [ ]'
-  metaData += '}'
-  var jsonObj = JSON.stringify(metaData)
-  fs.writeFileSync("metaData.json", metaData, function (err) {
-    if (err) throw err;
-    console.log('File is created successfully.');
-  });
-  console.log(jsonObj);
-
-// add the metadata itself as well
-  var file;
-  var deployed;
-  for await (file of ipfs.add(metaData, { pin: true }))
-  {
-    console.log("Hash: ", file.path)
-    deployed =  await contract.deploy(deployer.address, "Bold and Brasher", "B++", "../metaData.json")
-    console.log("Address: ", deployed.address)
-  }
-  console.log(await contract.tokenURI(1))
-  fs.unlinkSync("../metaData.json");
+  await console.log(
+	  "Account balance:",
+	  deployer.getBalance().toString()
+	)
+  const contract = await ethers.getContractFactory("HexProfilePic")
+  const deployed =  await contract.deploy()
+  console.log("Address: ", deployed.address)
 }
 main()
   .then(() => process.exit(0))

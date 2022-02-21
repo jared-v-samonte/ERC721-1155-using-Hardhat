@@ -21,37 +21,37 @@ class ImageViewer extends Component {
     const signersAddress = await signer.getAddress()
     console.log("Account:", signersAddress);
 
-      const factory = new ContractFactory(abi(), bytecode(), signer)
+      const factory = new ContractFactory(abi(), bytecode(), signer).attach("0xB71a6982775aD21CE9Edc3b30d7199bebe3e0530")
+      var image_path;
       
       console.log("Submitting file to IPFS...")
       var metaData = '{ ';
       for await (var result of ipfs.add(this.state.file, { pin: true }))
       {
         console.log('hash ', result.path)
-        metaData +=  '\n' + '\t' + '"' + 'name' + '"'  + ':' + " " + '"' +  this.state.name  +  '"' + ', ';
+        metaData +=  '\n' + '\t' + '"' + 'name' + '"'  + ':' + " " + '"' +  'Hex Profile Pic'  +  '"' + ', ';
         metaData +=  '\n' + '\t' + '"' + 'description' + '"'  + ':' + " " + '"' +  this.state.description + '"' + ', ';
-        metaData +=  '\n' + '\t' + '"' + 'symbol' + '"'  + ':' + " " + '"' + this.state.symbol +  '"' + ', ';
+        metaData +=  '\n' + '\t' + '"' + 'symbol' + '"'  + ':' + " " + '"' + 'HXP' +  '"' + ', ';
         metaData +=  '\n' + '\t' + '"' + 'image' + '"'  + ':' + " " + '"' + 'ipfs://' + result.path + '"';// + ', ';
         metaData += '\n' + '}';
+        image_path = result.path
     }
     console.log(metaData)
     console.log("Submitting file to IPFS...")
     const jsonDATA = JSON.parse(metaData);
     for await (var meta of ipfs.add(JSON.stringify(jsonDATA), { pin: true }))
-        {
-          console.log(signersAddress)
-          console.log(this.state.name)
-          console.log(this.state.symbol)
-          const imageURI = 'https://ipfs.io/ipfs/' + this.state.image
-          const tokenURI = 'https://ipfs.io/ipfs/' + meta.path
-          console.log('URL: ', tokenURI)
-          console.log('image: ', imageURI)
-          const InterPlan721 = await factory.deploy(signersAddress, this.state.name, this.state.symbol, tokenURI);
-          console.log("Contract deployed at:", InterPlan721.signersAddress);
-          this.setState({
-            address: InterPlan721.address
-          })
-        }
+    {
+      console.log(signersAddress)
+      const imageURI = 'https://ipfs.io/ipfs/' + image_path
+      const tokenURI = 'https://ipfs.io/ipfs/' + meta.path
+      console.log('URL: ', tokenURI)
+      console.log('image: ', imageURI)
+      const InterPlan721 = await factory.mintHexProfilePic(signersAddress, tokenURI);
+      console.log("Transaction Hash: ", InterPlan721.hash)
+      this.setState({
+        transactionHash: InterPlan721.hash
+      })
+    }
   }
 
 
@@ -77,11 +77,10 @@ class ImageViewer extends Component {
     super(props)
     this.state = 
     {
-      name: null,
       description: null,
-      symbol: null,
       file: null,
       address: null,
+      transactionHash: null
     }
     this.uploadFile = this.uploadFile.bind(this)
     this.captureFile = this.captureFile.bind(this)
@@ -94,6 +93,7 @@ class ImageViewer extends Component {
   
       <h1>InterPlanetary Image</h1>
 
+      <h8></h8>
       <Button
       title="Home Page"
       onPress={() => this.props.navigation.navigate('Home')}
@@ -103,13 +103,9 @@ class ImageViewer extends Component {
 
       <form onSubmit={(event) => {
           event.preventDefault()
-          const temp_name = this.name.value
           const temp_description = this.description.value
-          const temp_symbol = this.symbol.value
           this.setState({
-            name: temp_name,
             description: temp_description,
-            symbol: temp_symbol,
           })
           this.uploadFile()
         }}>
@@ -124,15 +120,6 @@ class ImageViewer extends Component {
           <div className="form-group mr-sm-2">
           <h1> </h1>
 
-          <input 
-            id= 'name'  
-            type="text"
-            className="form-control-sm"
-            placeholder="Name of NFT"
-            required
-            ref={(input) => {this.name = input}}
-          />
-
 
           <div className="form-group mr-sm-2"></div>
           <input
@@ -144,15 +131,6 @@ class ImageViewer extends Component {
             ref={(input) => {this.description = input}}
           />
 
-          <input 
-            id= 'symbol'    
-            type="text"
-            className="form-control-sm"
-            placeholder="Symbol of NFT"
-            required
-            ref={(input) => {this.symbol = input}}
-          />
-
           <div className="form-group mr-sm-2"></div>
           <input
           type='submit'
@@ -161,11 +139,9 @@ class ImageViewer extends Component {
           />
           </div></form>
 
-          <div>Contract Address: {this.state.address}</div>
-          <div>Token ID: 1</div>
-          <div>Network: Goerli</div>
-      
-
+          <div>Transaction Hash:{this.state.transactionHash}</div>
+          <div>Use this hash in the website below to find tokenID ann Contract Address</div>   
+          <a href="https://goerli.etherscan.io/"> Goerli Ether Scan</a>
       </View>
     )
   }
