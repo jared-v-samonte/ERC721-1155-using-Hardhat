@@ -2,7 +2,18 @@ export default function bytecode()
 {
     return [
       {
-        "inputs": [],
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "symbol",
+            "type": "string"
+          }
+        ],
         "stateMutability": "nonpayable",
         "type": "constructor"
       },
@@ -174,9 +185,9 @@ export default function bytecode()
             "type": "string"
           }
         ],
-        "name": "mintHexProfilePic",
+        "name": "mintInterPlan721",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
